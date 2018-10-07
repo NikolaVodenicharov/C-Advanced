@@ -14,8 +14,6 @@
             FallMatrixChars(matrix);
 
             Console.WriteLine(MatrixToString(matrix));
-
-
         }
 
         public static char[,] ReadEmptyMatrix()
@@ -63,6 +61,7 @@
                 }
             }
         }
+
         public static void ShootMatrix(char[,] matrix)
         {
             var shoot = Console.ReadLine().Split().Select(int.Parse).ToArray();
@@ -107,6 +106,7 @@
             }
 
         }
+
         public static void FallMatrixChars(char[,] matrix)
         {
             for (int col = 0; col < matrix.GetLength(1); col++)
@@ -122,7 +122,6 @@
                 }
             }
         }
-
         private static void MoveColumnChars(char[,] matrix, int col, int row)
         {
             var nextFreePosition = row;

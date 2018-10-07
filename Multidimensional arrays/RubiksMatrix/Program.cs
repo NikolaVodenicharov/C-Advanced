@@ -12,8 +12,8 @@
             var operativeMatrix = (int[,])baseMatrix.Clone();
 
             ExecuteInputCommands(operativeMatrix);
-            Console.WriteLine();
-            DisplayMatrix(operativeMatrix);
+            //Console.WriteLine();
+            //DisplayMatrix(operativeMatrix);
 
             var result = SwapMatrixPositions(baseMatrix, operativeMatrix);
             Console.WriteLine(result);
@@ -151,7 +151,6 @@
 
             return sb.ToString();
         }
-
         public static Tuple<int, int> Some<T>(T baseElement, T[,] operativeMatrix, int currentRow, int currentCol)
         {
             for (int row = currentRow; row < operativeMatrix.GetLength(0); row++)

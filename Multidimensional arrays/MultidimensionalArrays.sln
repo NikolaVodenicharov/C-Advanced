@@ -13,9 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatrixOfPalindromes", "Matr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiagonalDifference", "DiagonalDifference\DiagonalDifference.csproj", "{FA5DCA0B-C0A5-4258-89D8-2C5927F29F82}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2x2SquareInMatrix", "2x2SquareInMatrix\2x2SquareInMatrix.csproj", "{EE38D7E5-BE70-470C-BAC9-4C8AA1347820}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "2x2SquareInMatrix", "2x2SquareInMatrix\2x2SquareInMatrix.csproj", "{EE38D7E5-BE70-470C-BAC9-4C8AA1347820}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RubiksMatrix", "RubiksMatrix\RubiksMatrix.csproj", "{68FA7BE0-C8B2-4E3D-8B4E-0266314FCA71}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RubiksMatrix", "RubiksMatrix\RubiksMatrix.csproj", "{68FA7BE0-C8B2-4E3D-8B4E-0266314FCA71}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TargetPractice", "TargetPractice\TargetPractice.csproj", "{1B823EB8-AD8C-466E-82B3-EBB3D6A1E1B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{68FA7BE0-C8B2-4E3D-8B4E-0266314FCA71}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68FA7BE0-C8B2-4E3D-8B4E-0266314FCA71}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68FA7BE0-C8B2-4E3D-8B4E-0266314FCA71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B823EB8-AD8C-466E-82B3-EBB3D6A1E1B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B823EB8-AD8C-466E-82B3-EBB3D6A1E1B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B823EB8-AD8C-466E-82B3-EBB3D6A1E1B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B823EB8-AD8C-466E-82B3-EBB3D6A1E1B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

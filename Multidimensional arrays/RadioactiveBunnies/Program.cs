@@ -212,7 +212,7 @@
 
                     if (currentSymbol == 'B')
                     {
-                        // left
+                        // CreateLeftBunny();
                         var previousCol = col - 1;
                         if (previousCol >= 0)
                         {
@@ -220,10 +220,8 @@
                             {
                                 isPlayerAlive = false;
                             }
-                            else
-                            {
-                                matrix[row, previousCol] = 'B';
-                            }
+
+                            matrix[row, previousCol] = 'B';
                         }
 
                         // up
@@ -234,22 +232,21 @@
                             {
                                 isPlayerAlive = false;
                             }
-                            else
-                            {
-                                matrix[previousRow, col] = 'B';
-                            }
+
+                            matrix[previousRow, col] = 'B';
                         }
 
                         // right
                         var nextCol = col + 1;
                         if (nextCol < matrixColumns)
                         {
-                            if (matrix[row, nextCol] == 'P')
+                            if (matrix[row, nextCol] != 'B')
                             {
-                                isPlayerAlive = false;
-                            }
-                            else
-                            {
+                                if (matrix[row, nextCol] == 'P')
+                                {
+                                    isPlayerAlive = false;
+                                }
+
                                 matrix[row, nextCol] = 'b';
                             }
                         }
@@ -258,12 +255,14 @@
                         var nextRow = row + 1;
                         if (nextRow < matrixRows)
                         {
-                            if (matrix[nextRow, col] == 'P')
+                            if
+                                (matrix[nextRow, col] == '.')
                             {
-                                isPlayerAlive = false;
-                            }
-                            else
-                            {
+                                if (matrix[nextRow, col] == 'P')
+                                {
+                                    isPlayerAlive = false;
+                                }
+
                                 matrix[nextRow, col] = 'b';
                             }
                         }

@@ -11,7 +11,6 @@
         private static int matrixColumns;
 
         private static bool isPlayerWon = false;
-        private static bool isPlayerAlive = true;
 
         private static int playerRow;
         private static int playerCol;
@@ -19,7 +18,7 @@
         public static void Main(string[] args)
         {
             ReadAndInitializeMatrix();
-            ReadAndFillMatrix();
+            ReadInputMatrix();
 
             matrixRows = matrix.GetLength(0);
             matrixColumns = matrix.GetLength(1);
@@ -40,60 +39,65 @@
             matrix =  new char[rows, columns];
         }
 
-        public static void ReadAndFillMatrix()
+        public static void ReadInputMatrix()
         {
+            bool isPlayerPositionFound = false;
+
             for (int row = 0; row < matrix.GetLength(0); row++)
             {
                 var line = Console.ReadLine().ToCharArray();
 
                 for (int col = 0; col < matrix.GetLength(1); col++)
                 {
-                    matrix[row, col] = line[col];
+                    var symbol = line[col];
+
+                    FillMatrix(row, col, symbol);
+
+                    if (!isPlayerPositionFound)
+                    {
+                        isPlayerPositionFound = FindAndSetPlayerPosition(row, col, symbol);
+                    }
                 }
             }
+
+            matrix[playerRow, playerCol] = '.';
+        }
+        private static void FillMatrix(int row, int col, char symbol)
+        {
+            matrix[row, col] = symbol;
+        }
+        private static bool FindAndSetPlayerPosition(int row, int col, char symbol)
+        {
+            if (symbol == 'P')
+            {
+                playerRow = row;
+                playerCol = col;
+
+                return true;
+            }
+
+            return false;
         }
 
         public static string ExecuteMoveCommands(char[] moveCommands)
         {
-            FindPlayerPosition();
-
-            // execute rounds
-            for (int i = 0; i < moveCommands.Length && !isPlayerWon; i++)
+            foreach (var move in moveCommands)
             {
-                MovePlayer(moveCommands[i]);
-                SpreadBunnies();
+                MovePlayer(move);
+                CreateBunnies();
 
                 if (isPlayerWon)
                 {
                     return $"won: {playerRow} {playerCol}";
                 }
-                else if (!isPlayerAlive)
+
+                if (matrix[playerRow, playerCol] == 'B')
                 {
                     return $"dead: {playerRow} {playerCol}";
                 }
             }
 
             throw new ArgumentException("Not enought commands to finish the game.");
-        }
-
-        private static void FindPlayerPosition()
-        {
-            for (int row = 0; row < matrixRows; row++)
-            {
-                for (int col = 0; col < matrixColumns; col++)
-                {
-                    var currentSymbol = matrix[row, col];
-
-                    if (currentSymbol == 'P')
-                    {
-                        playerRow = row;
-                        playerCol = col;
-                        return;
-                    }
-                }
-            }
-
-            throw new ArgumentException("There is no player in the matrix.");
         }
 
         private static void MovePlayer(char moveCommand)
@@ -118,160 +122,102 @@
         }
         private static void MovePlayerLeft()
         {
-            var previousCol = playerCol - 1;
-            matrix[playerRow, playerCol] = '.';
-
-            if (previousCol < 0)
+            if (playerCol - 1 < 0)
             {
                 isPlayerWon = true;
-                return;
-            }
-            else if (matrix[playerRow, previousCol] == 'B')
-            {
-                isPlayerAlive = false;
             }
             else
             {
-                matrix[playerRow, previousCol] = 'P';
+                playerCol--;
             }
-
-            playerCol = previousCol;
-
         }
         private static void MovePlayerUp()
         {
-            var previousRow = playerRow - 1;
-            matrix[playerRow, playerCol] = '.';
-
-            if (previousRow < 0)
+            if (playerRow - 1 < 0)
             {
                 isPlayerWon = true;
-                return;
-            }
-            else if (matrix[previousRow, playerCol] == 'B')
-            {
-                isPlayerAlive = false;
             }
             else
             {
-                matrix[previousRow, playerCol] = 'P';
+                playerRow--;
             }
-
-            playerRow = previousRow;
         }
         private static void MovePlayerRight()
         {
-            var nextCol = playerCol + 1;
-            matrix[playerRow, playerCol] = '.';
-
-            if (nextCol >= matrixColumns)
+            if (playerCol + 1 >= matrixColumns)
             {
                 isPlayerWon = true;
-                return;
-            }
-            else if (matrix[playerRow, nextCol] == 'B')
-            {
-                isPlayerAlive = false;
             }
             else
             {
-                matrix[playerRow, nextCol] = 'P';
+                playerCol++;
             }
-
-            playerCol = nextCol;
         }
         private static void MovePlayerDown()
         {
-            var nextRow = playerRow + 1;
-            matrix[playerRow, playerCol] = '.';
 
-            if (nextRow >= matrixRows)
+            if (playerRow + 1 >= matrixRows)
             {
                 isPlayerWon = true;
-                return;
-            }
-            else if (matrix[nextRow, playerCol] == 'B')
-            {
-                isPlayerAlive = false;
             }
             else
             {
-                matrix[nextRow, playerCol] = 'P';
+                playerRow++;
             }
-
-            playerRow = nextRow;
         }
 
-        private static void SpreadBunnies()
+        private static void CreateBunnies()
         {
             for (int row = 0; row < matrixRows; row++)
             {
                 for (int col = 0; col < matrixColumns; col++)
                 {
-                    var currentSymbol = matrix[row, col];
-
-                    if (currentSymbol == 'B')
+                    switch (matrix[row, col])
                     {
-                        // CreateLeftBunny();
-                        var previousCol = col - 1;
-                        if (previousCol >= 0)
-                        {
-                            if (matrix[row, previousCol] == 'P')
-                            {
-                                isPlayerAlive = false;
-                            }
+                        case 'B':
+                            CreateLetBunny(row, col);
+                            CreateUpperBunny(row, col);
+                            CreateRightBunny(row, col);
+                            CreateBottomBunny(row, col);
+                            break;
 
-                            matrix[row, previousCol] = 'B';
-                        }
-
-                        // up
-                        var previousRow = row - 1;
-                        if (previousRow >= 0)
-                        {
-                            if (matrix[previousRow, col] == 'P')
-                            {
-                                isPlayerAlive = false;
-                            }
-
-                            matrix[previousRow, col] = 'B';
-                        }
-
-                        // right
-                        var nextCol = col + 1;
-                        if (nextCol < matrixColumns)
-                        {
-                            if (matrix[row, nextCol] != 'B')
-                            {
-                                if (matrix[row, nextCol] == 'P')
-                                {
-                                    isPlayerAlive = false;
-                                }
-
-                                matrix[row, nextCol] = 'b';
-                            }
-                        }
-
-                        // down
-                        var nextRow = row + 1;
-                        if (nextRow < matrixRows)
-                        {
-                            if
-                                (matrix[nextRow, col] == '.')
-                            {
-                                if (matrix[nextRow, col] == 'P')
-                                {
-                                    isPlayerAlive = false;
-                                }
-
-                                matrix[nextRow, col] = 'b';
-                            }
-                        }
-                    }
-                    else if (currentSymbol == 'b')
-                    {
-                        matrix[row, col] = 'B';
+                        case 'b':
+                            matrix[row, col] = 'B';
+                            break;
                     }
                 }
+            }
+        }
+        private static void CreateLetBunny(int row, int col)
+        {
+            var previousCol = col - 1;
+            if (previousCol >= 0)
+            {
+                matrix[row, previousCol] = 'B';
+            }
+        }
+        private static void CreateUpperBunny(int row, int col)
+        {
+            var previousRow = row - 1;
+            if (previousRow >= 0)
+            {
+                matrix[previousRow, col] = 'B';
+            }
+        }
+        private static void CreateRightBunny(int row, int col)
+        {
+            var nextCol = col + 1;
+            if (nextCol < matrixColumns && matrix[row, nextCol] != 'B')
+            {
+                matrix[row, nextCol] = 'b';
+            }
+        }
+        private static void CreateBottomBunny(int row, int col)
+        {
+            var nextRow = row + 1;
+            if (nextRow < matrixRows && matrix[nextRow, col] != 'B')
+            {
+                matrix[nextRow, col] = 'b';
             }
         }
 

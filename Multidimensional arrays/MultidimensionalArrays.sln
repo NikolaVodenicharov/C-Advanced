@@ -25,7 +25,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RadioactiveBunnies", "Radio
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crossfire", "Crossfire\Crossfire.csproj", "{44B24E74-725D-463A-A79A-12762793B488}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheHeiganDance", "TheHeiganDance\TheHeiganDance.csproj", "{FA2B79C3-5121-4E18-A852-826613A6DA88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheHeiganDance", "TheHeiganDance\TheHeiganDance.csproj", "{FA2B79C3-5121-4E18-A852-826613A6DA88}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkingSystem", "ParkingSystem\ParkingSystem.csproj", "{1B86762C-D84E-4EA6-BC28-8FA8EDD33B21}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +83,10 @@ Global
 		{FA2B79C3-5121-4E18-A852-826613A6DA88}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA2B79C3-5121-4E18-A852-826613A6DA88}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA2B79C3-5121-4E18-A852-826613A6DA88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B86762C-D84E-4EA6-BC28-8FA8EDD33B21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B86762C-D84E-4EA6-BC28-8FA8EDD33B21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B86762C-D84E-4EA6-BC28-8FA8EDD33B21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B86762C-D84E-4EA6-BC28-8FA8EDD33B21}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

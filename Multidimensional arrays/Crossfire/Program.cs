@@ -21,11 +21,10 @@
             InitializeAndFillRowsLastIndex();
 
             ExecuteCommands();
+
             var result = MatrixToString();
             Console.WriteLine(result);
         }
-
-
 
         private static void InitializeAndFillMatrix()
         {
@@ -43,9 +42,7 @@
                 {
                     matrix[row, col] = counter++;
                 }
-            }
-
-            
+            }         
         }
         private static void InitializeAndFillRowsLastIndex()
         {
@@ -56,6 +53,7 @@
                 rowsLastIndex[i] = matrixColumns - 1;
             }
         }
+
         private static void ExecuteCommands()
         {
             while (true)
@@ -74,39 +72,14 @@
                 var targetRange = commandParameters[2];
 
                 DestroyCells(targetRow, targetColumn, targetRange);
-
-                Console.WriteLine(MatrixToString());
             }
         }
+
         private static void DestroyCells(int targetRow, int targetColumn, int targetRange)
         {
-            // vertical 
             DestroyVerticalLineOfCells(targetRow, targetColumn, targetRange);
-
-            // horizontal
             DestroyHorizontalLineOfCells(targetRow, targetColumn, targetRange);
         }
-
-        private static void DestroyHorizontalLineOfCells(int targetRow, int targetColumn, int targetRange)
-        {
-            var firstFreeColumn = Math.Max(0, (targetColumn - targetRange));
-            var lastFreeColumn = Math.Min(rowsLastIndex[targetRow], (targetColumn + targetRange));
-
-            var rowLastIndex = rowsLastIndex[targetRow];
-
-            for (int col = firstFreeColumn; col <= lastFreeColumn; col++)
-            {
-                var replacementCol = col + targetRange + 1;
-
-                if (col <= lastFreeColumn && replacementCol <= rowLastIndex)
-                {
-                    matrix[targetRow, col] = matrix[targetRow, replacementCol];
-                }
-
-                rowsLastIndex[targetRow] -= 1;
-            }
-        }
-
         private static void DestroyVerticalLineOfCells(int targetRow, int targetColumn, int targetRange)
         {
             var upperRow = Math.Max(0, (targetRow - targetRange));
@@ -128,6 +101,25 @@
                 {
                     rowsLastIndex[row] -= 1;
                 }
+            }
+        }
+        private static void DestroyHorizontalLineOfCells(int targetRow, int targetColumn, int targetRange)
+        {
+            var firstFreeColumn = Math.Max(0, (targetColumn - targetRange));
+            var lastFreeColumn = Math.Min(rowsLastIndex[targetRow], (targetColumn + targetRange));
+
+            var rowLastIndex = rowsLastIndex[targetRow];
+
+            for (int col = firstFreeColumn; col <= lastFreeColumn; col++)
+            {
+                var replacementCol = col + targetRange + 1;
+
+                if (col <= lastFreeColumn && replacementCol <= rowLastIndex)
+                {
+                    matrix[targetRow, col] = matrix[targetRow, replacementCol];
+                }
+
+                rowsLastIndex[targetRow] -= 1;
             }
         }
 
